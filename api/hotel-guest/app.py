@@ -2,7 +2,9 @@ import os, psycopg
 from psycopg.rows import dict_row
 from flask import Flask, request
 from flask_cors import CORS
+from markupsafe import escape
 from dotenv import load_dotenv 
+
 
 # pip install psycopg_binary python-dotenv
 
@@ -103,7 +105,8 @@ def bookings():
                 body['room'], 
                 guest_id, 
                 body['datefrom'],
-                body['addinfo']
+                body['addinfo'],
+                escape(body['addinfo'])
             ])
             result = cur.fetchone()
     
